@@ -1,0 +1,26 @@
+{
+  "name": "my_site",
+  "version": "1.0.0",
+  "description": "Server to signup and login",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "signup",
+    "login"
+  ],
+  "author": "Salah Mahdi",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "jquery": "^3.2.1",
+    "jsonwebtoken": "^7.4.1",
+    "mongoose": "^4.11.1"
+  }
+}

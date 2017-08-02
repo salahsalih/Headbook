@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>HeadBook</title>
+
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+  <div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+      <div class="cover-container">
+
+        <div class="masthead clearfix">
+          <div class="inner">
+            <h3 class="masthead-brand">HeadBook</h3>
+            <nav>
+              <ul class="nav masthead-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a id="singname"></a></li>
+                <li><a id="loginout"></a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="inner cover">
+          <form id="form" method="post" hidden="true">
+            <div class="form-group">
+              <label for="exampleInputName">Name</label>
+              <input name="post-txt" class="form-control" placeholder="What you think">
+            </div>
+            <button id="post" class="btn btn-default">Submit</button>
+          </form>
+          <div class="inner cover pre-scrollable" id="content">
+            <h1 class="cover-heading">Welcome</h1>
+            <p class="lead">Glade to join our social network</p>
+          </div>
+        </div>
+        <div class="mastfoot">
+          <div class="inner">
+            <p>&reg;<a href="/">HeadBook.com</a></p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="/js/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/script.js"></script>
+  <script>
+    $(document).ready(() => {
+      function getAllPosts(){
+        sendRequest("/posts", "GET")
+          .done(function (json) {
+            var post, filling = "";
+            for (var i in json.message) {
+              post = json.message[i]
+              filling +=
+                "<div class=\"list-group\">\
+                      <h4 class=\"list-group-item-heading\">" + post
+                .name +
+                "</h4>\
+                      <p class=\"list-group-item-text\">" + post.post +
+                "</p>\
+                    </div>"
+            }
+            $('#content').html(filling)
+          })
+      }
+      var cookie = parseCookieJSON()
+      if (cookie.headbooktoken) {
+        $("#singname").text(cookie.name).attr("href", "/")
+        $("#loginout").text("Logout").attr("href", "/logout.html")
+        getAllPosts()
+        var form = $('#form')
+        form.show()
+        form.on('submit', function () {
+          event.preventDefault();
+          var post = document.forms["form"]["post-txt"].value
+          if (post === "")
+            alert('Empty post')
+          else {
+            sendRequest("/posts", "POST", {
+                post: post,
+              })
+              .done(function (json) {
+                console.log(json);
+                getAllPosts()
+              })
+          }
+        })
+      } else {
+        $("#singname").text("Signup").attr("href", "/signup.html")
+        $("#loginout").text("Login").attr("href", "/login.html")
+      }
+    })
+  </script>
+</body>
+
+</html>

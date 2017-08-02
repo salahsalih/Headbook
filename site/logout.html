@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>HeadBook</title>
+
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+  <div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+      <div class="cover-container">
+
+        <div class="masthead clearfix">
+          <div class="inner">
+            <h3 class="masthead-brand">HeadBook</h3>
+            <nav>
+              <ul class="nav masthead-nav" id="gest">
+                <li><a href="/">Home</a></li>
+                <li><a href="signup.html">Signup</a></li>
+                <li><a href="login.html">Login</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="inner cover">
+          <h1 class="cover-heading">Bye</h1>
+          <p class="lead">Hope to see you soon</p>
+        </div>
+
+        <div class="mastfoot">
+          <div class="inner">
+            <p>&reg;<a href="/">HeadBook.com</a></p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="/js/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js"></script>
+  <script>
+  $(document).ready(() => {
+            $.ajax({
+            url: "logout", // The URL for the request
+            // The data to send (will be converted to a query string)
+            data: {
+            },
+            type: "POST", // Whether this is a POST or GET request
+            dataType: "json", // The type of data we expect back
+          })
+          // Code to run if the request succeeds (is done);
+          // The response is passed to the function
+          .done(function(json) {
+            console.log(json);
+          })
+          // Code to run if the request fails; the raw request and
+          // status codes are passed to the function
+          .fail(function(xhr, status, errorThrown) {
+            console.log("Sorry, there was a problem!")
+            console.log("Error: " + errorThrown);
+            console.log("Status: " + status);
+            console.dir(xhr);
+          })
+          // Code to run regardless of success or failure;
+          .always(function(xhr, status) {
+            console.log("The request is complete!");
+          });
+      }
+  )
+</script>
+</body>
+
+</html>
